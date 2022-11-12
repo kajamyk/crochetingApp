@@ -1,5 +1,6 @@
 package com.example.crochetingapp.core;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -17,5 +18,10 @@ public class Course {
     Long courseId;
     @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = EAGER)
     private List<Tutorial> tutorials = new ArrayList<>();
+    @NotNull
     private String typeOfCourse;
+
+    public Course() {
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.example.crochetingapp.core;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -11,7 +12,12 @@ public class Step {
     @Column(name = "step_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long stepId;
+    @NotNull
     private String nameOfStep;
     @Column(columnDefinition = "LONGTEXT")
     private String description;
+
+    public Step() {
+
+    }
 }

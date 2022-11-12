@@ -1,7 +1,7 @@
 package com.example.crochetingapp.core;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
-import org.hibernate.annotations.ManyToAny;
 
 import javax.persistence.*;
 import java.util.ArrayList;
@@ -14,11 +14,14 @@ public class User {
     @Column(name = "user_id")
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long userId;
-    private String password;
+    @NotNull
+    @Column(unique = true, name = "user_name")
     private String userName;
+    @NotNull
+    private String password;
 
     @OneToOne(cascade = CascadeType.ALL)
-    History history = new History();
+    private History history = new History();
 
     @ManyToMany(cascade = {CascadeType.ALL})
     @JoinTable(
@@ -27,12 +30,8 @@ public class User {
     )
     List<Course> courses = new ArrayList<>();
 
-    @ManyToMany
-    @JoinTable(
-            joinColumns = {@JoinColumn(name = "user_id")},
-            inverseJoinColumns = {@JoinColumn(name = "role_id")}
-    )
-    private List<Role> roles = new ArrayList<>();
+    @NotNull
+    private String role;
 
     public User() {
 
@@ -41,8 +40,6 @@ public class User {
     public User(String userName, String password) {
         this.userName = userName;
         this.password = password;
+        this.role = "USER";
     }
-
-
-
 }

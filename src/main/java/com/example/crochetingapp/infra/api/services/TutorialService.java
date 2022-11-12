@@ -1,4 +1,4 @@
-package com.example.crochetingapp.infra.api;
+package com.example.crochetingapp.infra.api.services;
 
 import com.example.crochetingapp.core.Step;
 import com.example.crochetingapp.core.Tutorial;
@@ -6,6 +6,7 @@ import com.example.crochetingapp.infra.jpa.JpaTutorialRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.security.RolesAllowed;
 import java.util.List;
 
 @Service
@@ -15,10 +16,7 @@ public class TutorialService {
 
     public Tutorial getTutorialByName(String tutorialName) {
         List<Tutorial> tutorials = tutorialRepository.findAll();
-        System.out.println(tutorials);
         for (Tutorial tutorial : tutorials) {
-            System.out.println(tutorial.getTutorialName());
-            System.out.println(tutorialName);
             if (tutorial.getTutorialName().equals(tutorialName)) {
                 return tutorial;
             }
@@ -26,6 +24,7 @@ public class TutorialService {
         return null;
     }
 
+    @RolesAllowed("USER")
     public List<Tutorial> getTutorials() {
         return tutorialRepository.findAll();
     }

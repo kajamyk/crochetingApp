@@ -1,8 +1,10 @@
 package com.example.crochetingapp.infra.api.rest;
 
-import com.example.crochetingapp.core.User;
-import com.example.crochetingapp.infra.api.UserService;
+import com.example.crochetingapp.core.Course;
+import com.example.crochetingapp.core.Tutorial;
+import com.example.crochetingapp.infra.api.services.UserService;
 import lombok.Data;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -10,65 +12,73 @@ import javax.validation.Valid;
 import java.util.List;
 
 @RestController
-@RequestMapping("/users")
+@Slf4j
+@RequestMapping("/user")
 public class UserController {
     @Autowired
     UserService userService;
 
-    @PostMapping("/")
-    public void addUser(@Valid @RequestBody User user) {
-        userService.addUser(user);
-    }
-
-    @GetMapping("/")
-    public List<User> getUsers() {
-        return userService.getUsers();
-    }
-
     @PutMapping("/{userName}/history")
-    public void updateHistory(@Valid @PathVariable("userName") String userName, @Valid @RequestBody HistoryHolder historyHolder) {
-        if (historyHolder.isAdd()) {
-            userService.addTutorialToHistory(userName, historyHolder.tutorialName);
-        } else {
-            userService.removeTutorialFromHistory(userName, historyHolder.tutorialName);
+    public void updateHistory(@Valid @PathVariable("userName") String userName, @Valid @RequestBody String tutorialName) throws Exception {
+        System.out.println(tutorialName);
+        try {
+            userService.removeTutorialFromHistory(userName, tutorialName);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
         }
     }
 
     @DeleteMapping("/{userName}")
-    public void deleteUser(@Valid @PathVariable("userName") String userName) {
-        userService.deleteUser(userName);
+    public void deleteUser(@Valid @PathVariable("userName") String userName) throws Exception {
+        try {
+            userService.deleteUser(userName);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+
     }
 
     @PutMapping("/{userName}")
-    public void updateUser(@Valid @PathVariable("userName") String userName, @Valid @RequestBody UserHolder userHolder) {
-        userService.updateUser(userName, userHolder.getPassword(), userHolder.getNewUserName(), userHolder.getNewPassword());
+    public void updateUser(@Valid @PathVariable("userName") String userName, @Valid @RequestBody UserHolder userHolder) throws Exception {
+        try {
+            userService.updateUser(userName, userHolder.getPassword(), userHolder.getNewUserName(), userHolder.getNewPassword());
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+
     }
 
     @PutMapping("/{userName}/courses")
-    public void updateCourses(@Valid @PathVariable("userName") String userName, @Valid @RequestBody CourseHolder courseHolder) {
-        if (courseHolder.isAdd()) {
-            userService.addUserCourse(userName, courseHolder.courseType);
-        } else {
-            userService.deleteUserCourse(userName, courseHolder.courseType);
+    public void updateCourses(@Valid @PathVariable("userName") String userName, @Valid @RequestBody String courseType) throws Exception {
+        try {
+            userService.deleteUserCourse(userName, courseType);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
         }
     }
 
-    @GetMapping("/{userName}")
-    public User getUser(@Valid @PathVariable("userName") String userName) {
-        return userService.getUser(userName);
+    @GetMapping("/{userName}/history")
+    public List<Tutorial> getHistory(@Valid @PathVariable("userName") String userName) {
+        try {
+            return userService.getUserTutorials(userName);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+
+        return null;
     }
 
-    @Data
-    private static class HistoryHolder {
-        private String tutorialName;
-        private boolean add;
+    @GetMapping("/{userName}/courses")
+    public List<Course> getUserCourses(@Valid @PathVariable("userName") String userName) {
+        try {
+            return userService.getUserCourses(userName);
+        } catch (Exception exception) {
+            log.error(exception.getMessage());
+        }
+
+        return null;
     }
 
-    @Data
-    private static class CourseHolder {
-        private String courseType;
-        private boolean add;
-    }
 
     @Data
     private static class UserHolder {
@@ -76,5 +86,4 @@ public class UserController {
         private String newPassword;
         private String newUserName;
     }
-
 }

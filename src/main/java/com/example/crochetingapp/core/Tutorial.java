@@ -1,12 +1,11 @@
 package com.example.crochetingapp.core;
 
+import com.sun.istack.NotNull;
 import lombok.Data;
 
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-
-import static javax.persistence.FetchType.EAGER;
 
 @Entity
 @Data
@@ -15,9 +14,14 @@ public class Tutorial {
     @Column(name = "tutorial_id", nullable = false)
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long tutorialId;
+    @NotNull
     private String tutorialName;
     @Column(columnDefinition = "LONGTEXT")
     private String requirements;
-    @OneToMany(cascade = {CascadeType.MERGE, CascadeType.PERSIST}, fetch = EAGER)
+    @OneToMany()
     private List<Step> steps = new ArrayList<>();
+
+    public Tutorial() {
+
+    }
 }

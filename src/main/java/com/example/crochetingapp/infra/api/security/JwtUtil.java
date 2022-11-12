@@ -1,8 +1,10 @@
 package com.example.crochetingapp.infra.api.security;
 
+import com.example.crochetingapp.infra.api.services.UserService;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
@@ -11,9 +13,13 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.function.Function;
 
+
 @Service
 public class JwtUtil {
-    private String secret = "kajapati";
+    private final String secret = "kajapati";
+
+    @Autowired
+    UserService userService;
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -27,6 +33,7 @@ public class JwtUtil {
         final Claims claims = extractAllClaims(token);
         return claimsResolver.apply(claims);
     }
+
     private Claims extractAllClaims(String token) {
         return Jwts.parser().setSigningKey(secret).parseClaimsJws(token).getBody();
     }
