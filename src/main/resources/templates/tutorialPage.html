@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Tutorial</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+  <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+</head>
+<style>
+    .button-56 {
+        margin: auto;
+
+        align-items: center;
+        align-content: center;
+        background-color: darkslateblue;
+        border: 2px solid #111;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: rgba(0, 0, 0, 0.59);
+        cursor: pointer;
+        display: flex;
+        font-size: 80px;
+        height: 120px;
+        justify-content: center;
+        line-height: 40px;
+        max-width: 100%;
+        padding: 0 25px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-56:after {
+        background-color: rgba(1, 0, 0, 0.24);
+        border-radius: 8px;
+        content: "";
+        display: block;
+        height: 120px;
+        left: 0;
+        width: 100%;
+        position: absolute;
+        top: -2px;
+        transform: translate(20px, 20px);
+        transition: transform .2s ease-out;
+        z-index: -1;
+    }
+
+    .button-56:hover:after {
+        transform: translate(0, 0);
+    }
+
+    .button-56:active {
+        background-color: whitesmoke;
+        outline: 0;
+    }
+
+    .button-56:hover {
+        outline: 0;
+    }
+
+    @media (min-width: 768px) {
+        .button-56 {
+            padding: 0 40px;
+        }
+    }
+    .text_tutorial {
+        vertical-align: center;
+        font-size: 40px;
+        letter-spacing: 2px;
+        color: rgba(0, 0, 0, 0.59);
+        text-align: center;
+        font-weight: 600;
+    }
+
+    body {
+        font-family: 'Lato', sans-serif;
+        background: #8270c4;
+    }
+
+    .text_header {
+        vertical-align: center;
+        font-size: 120px;
+        letter-spacing: 2px;
+        color: whitesmoke;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .text_sub_header {
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+        border-collapse: separate;
+        border-spacing: 15px 50px;
+
+        justify-content: center;
+        font-size: 50px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: rgba(0, 0, 0, 0.59);
+        text-align: center;
+        vertical-align: bottom;
+    }
+
+    .my_form {
+        font-size: 50px;
+    }
+
+    .text_header_home {
+        vertical-align: center;
+        font-size: 160px;
+        letter-spacing: 2px;
+        color: whitesmoke;
+        text-align: center;
+        font-weight: 1000;
+    }
+</style>
+<body>
+<div class="container">
+    <form action="/courses/BEGINNER/Hippo" method="post">
+        <button class="button-56" role="button" style="float:right; margin-top: 20px">Start</button>
+    </form>
+    <div class="text_header">
+        Hippo
+    </div>
+    <br>
+    <img src="https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8779_large.JPG?v=1547717542" style="display: block;
+  margin-left: auto;
+  margin-right: auto;"><br>
+    <div class="text_tutorial">
+        <span style="white-space: pre-line" th:text="${tutorial.getRequirements()}"></span>
+    </div>
+    <br>
+
+    <br>
+
+
+</div>
+</body>
+</html>

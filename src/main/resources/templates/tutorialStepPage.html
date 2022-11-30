@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Step</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet"
+          integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <link href='http://fonts.googleapis.com/css?family=Lato:400,700' rel='stylesheet' type='text/css'>
+
+</head>
+<style>
+    .button-56 {
+        margin: auto;
+
+        align-items: center;
+        align-content: center;
+        background-color: darkslateblue;
+        border: 2px solid #111;
+        border-radius: 8px;
+        box-sizing: border-box;
+        color: rgba(0, 0, 0, 0.59);
+        cursor: pointer;
+        display: flex;
+        font-size: 80px;
+        height: 120px;
+        justify-content: center;
+        line-height: 40px;
+        max-width: 100%;
+        padding: 0 25px;
+        position: relative;
+        text-align: center;
+        text-decoration: none;
+        user-select: none;
+        -webkit-user-select: none;
+        touch-action: manipulation;
+    }
+
+    .button-56:after {
+        background-color: rgba(1, 0, 0, 0.24);
+        border-radius: 8px;
+        content: "";
+        display: block;
+        height: 120px;
+        left: 0;
+        width: 100%;
+        position: absolute;
+        top: -2px;
+        transform: translate(20px, 20px);
+        transition: transform .2s ease-out;
+        z-index: -1;
+    }
+
+    .button-56:hover:after {
+        transform: translate(0, 0);
+    }
+
+    .button-56:active {
+        background-color: whitesmoke;
+        outline: 0;
+    }
+
+    .button-56:hover {
+        outline: 0;
+    }
+
+    @media (min-width: 768px) {
+        .button-56 {
+            padding: 0 40px;
+        }
+    }
+    .text_tutorial {
+        vertical-align: center;
+        font-size: 40px;
+        letter-spacing: 2px;
+        color: rgba(0, 0, 0, 0.59);
+        text-align: center;
+        font-weight: 600;
+    }
+
+    body {
+        font-family: 'Lato', sans-serif;
+        background: #8270c4;
+    }
+
+    .text_header {
+        vertical-align: center;
+        font-size: 120px;
+        letter-spacing: 2px;
+        color: whitesmoke;
+        text-align: center;
+        font-weight: 600;
+    }
+
+    .text_sub_header {
+        border-width: 1px;
+        border-style: solid;
+        border-color: black;
+        border-collapse: separate;
+        border-spacing: 15px 50px;
+
+        justify-content: center;
+        font-size: 50px;
+        font-weight: 900;
+        letter-spacing: 1px;
+        color: rgba(0, 0, 0, 0.59);
+        text-align: center;
+        vertical-align: bottom;
+    }
+
+    .my_form {
+        font-size: 50px;
+    }
+
+    .text_header_home {
+        vertical-align: center;
+        font-size: 160px;
+        letter-spacing: 2px;
+        color: whitesmoke;
+        text-align: center;
+        font-weight: 1000;
+    }
+</style>
+<script>
+window.onload = function(){
+
+    let number = [[${number}]];
+    let steps = [[${steps}]];
+    number++;
+
+    const links = ["https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8533_large.JPG?v=1547718421",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8539_large.JPG?v=1547718434",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8605_large.JPG?v=1547718715",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8625_large.JPG?v=1547718733",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8642_large.JPG?v=1547719030",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8675_large.JPG?v=1547719186",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8679_large.JPG?v=1547719199",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8554_large.JPG?v=1547720164",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8694_large.JPG?v=1547719765",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8698_large.JPG?v=1547719771",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8545_large.JPG?v=1547719979",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8551_large.JPG?v=1547719984",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8574_large.JPG?v=1547720042",
+        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8771_large.JPG?v=1547720323"
+        ];
+    document.getElementById("img").src = links[number-2];
+
+    if(number > steps ) {
+        document.getElementById("form").action = "/tutorial";
+        document.getElementById("button").firstChild.data = "End";
+
+    } else {
+
+        document.getElementById("form").action = "http://localhost:8080/courses/BEGINNER/Hippo/" + number;
+    }
+};
+</script>
+<body>
+<div class="container">
+    <div class="text_header">
+        <form action="#" method="get" id="form">
+        <button class="button-56" role="button" id="button" style="float: right; margin-top: 20px" >Next</button>
+    </form>
+        Hippo
+
+    </div>
+    <div class="text_tutorial">
+        <span style="white-space: pre-line" th:text="${step.getNameOfStep()}" id="t1"></span>
+        <br><br>
+        <span style="white-space: pre-line" th:text="${step.getDescription()}" id="t2"></span>
+    </div>
+    <br>
+    <img src="#" style="display: block;
+  margin-left: auto;
+  margin-right: auto;" id="img"><br>
+
+
+</div>
+</body>
+</html>

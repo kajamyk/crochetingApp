@@ -10,6 +10,7 @@ import org.springframework.security.config.BeanIds;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.config.http.SessionCreationPolicy;
@@ -52,18 +53,16 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
         http.authorizeRequests()
                 .antMatchers("/register").permitAll()
+                .antMatchers("/resources/**").permitAll()
                 .antMatchers("/home").permitAll()
                 .antMatchers("/users/**").hasAnyRole("ADMIN")
                 .antMatchers("/courses/**").hasAnyRole("USER")
                 .antMatchers("/user/{userName}/**").access("@userSecurity.hasUserName(authentication, #userName)  && hasAnyRole('USER')")
                 .antMatchers("/user/**").hasAnyRole("USER");
-
         http.csrf().disable().authorizeRequests().
                 antMatchers("/login").permitAll().anyRequest().authenticated()
                 .and().exceptionHandling().and().sessionManagement()
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS);
-
-
         http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
 }
