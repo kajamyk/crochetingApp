@@ -1,8 +1,5 @@
 package com.example.crochetingapp.infra.api.rest;
 
-import com.example.crochetingapp.core.Course;
-import com.example.crochetingapp.core.Step;
-import com.example.crochetingapp.core.Tutorial;
 import com.example.crochetingapp.infra.api.services.CourseService;
 import com.example.crochetingapp.infra.api.services.UserService;
 import lombok.extern.slf4j.Slf4j;
@@ -13,8 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
-import java.util.List;
-import java.util.Locale;
 
 @RestController
 @Slf4j
@@ -41,7 +36,7 @@ public class CourseController {
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName("tutorialsPage");
             modelAndView.addObject("tutorials", courseService.getCourseTutorials(courseType.toUpperCase()));
-            modelAndView.addObject("courseType",courseType);
+            modelAndView.addObject("courseType", courseType);
             return modelAndView;
         } catch (Exception exception) {
             log.error(exception.getMessage());
@@ -103,7 +98,7 @@ public class CourseController {
             String userName = userDetails.getUsername();
             try {
                 userService.addTutorialToHistory(userName, tutorialName);
-            } catch (Exception e){
+            } catch (Exception e) {
 
             }
             ModelAndView modelAndView = new ModelAndView();

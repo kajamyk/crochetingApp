@@ -69,6 +69,7 @@
             padding: 0 40px;
         }
     }
+
     .text_tutorial {
         vertical-align: center;
         font-size: 40px;
@@ -122,45 +123,45 @@
     }
 </style>
 <script>
-window.onload = function(){
+    window.onload = function () {
 
-    let number = [[${number}]];
-    let steps = [[${steps}]];
-    number++;
+        let number = [[${number}]];
+        let steps = [[${steps}]];
+        number++;
 
-    const links = ["https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8533_large.JPG?v=1547718421",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8539_large.JPG?v=1547718434",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8605_large.JPG?v=1547718715",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8625_large.JPG?v=1547718733",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8642_large.JPG?v=1547719030",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8675_large.JPG?v=1547719186",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8679_large.JPG?v=1547719199",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8554_large.JPG?v=1547720164",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8694_large.JPG?v=1547719765",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8698_large.JPG?v=1547719771",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8545_large.JPG?v=1547719979",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8551_large.JPG?v=1547719984",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8574_large.JPG?v=1547720042",
-        "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8771_large.JPG?v=1547720323"
+        const links = ["https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8533_large.JPG?v=1547718421",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8539_large.JPG?v=1547718434",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8605_large.JPG?v=1547718715",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8625_large.JPG?v=1547718733",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8642_large.JPG?v=1547719030",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8675_large.JPG?v=1547719186",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8679_large.JPG?v=1547719199",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8554_large.JPG?v=1547720164",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8694_large.JPG?v=1547719765",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8698_large.JPG?v=1547719771",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8545_large.JPG?v=1547719979",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8551_large.JPG?v=1547719984",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8574_large.JPG?v=1547720042",
+            "https://cdn.shopify.com/s/files/1/1163/8814/files/IMG_8771_large.JPG?v=1547720323"
         ];
-    document.getElementById("img").src = links[number-2];
+        document.getElementById("img").src = links[number - 2];
 
-    if(number > steps ) {
-        document.getElementById("form").action = "/tutorial";
-        document.getElementById("button").firstChild.data = "End";
+        if (number > steps) {
+            document.getElementById("form").action = "/tutorial";
+            document.getElementById("button").firstChild.data = "End";
 
-    } else {
+        } else {
 
-        document.getElementById("form").action = "http://localhost:8080/courses/BEGINNER/Hippo/" + number;
-    }
-};
+            document.getElementById("form").action = "http://localhost:8080/courses/BEGINNER/Hippo/" + number;
+        }
+    };
 </script>
 <body>
 <div class="container">
     <div class="text_header">
         <form action="#" method="get" id="form">
-        <button class="button-56" role="button" id="button" style="float: right; margin-top: 20px" >Next</button>
-    </form>
+            <button class="button-56" id="button" role="button" style="float: right; margin-top: 20px">Next</button>
+        </form>
         Hippo
 
     </div>

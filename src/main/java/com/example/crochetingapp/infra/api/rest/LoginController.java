@@ -9,23 +9,16 @@ import org.springframework.beans.factory.ObjectFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContext;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.*;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
-import org.springframework.web.reactive.result.view.RedirectView;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.servlet.ModelAndView;
 
-import javax.servlet.http.Cookie;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
-import static org.springframework.security.web.context.HttpSessionSecurityContextRepository.SPRING_SECURITY_CONTEXT_KEY;
 
 @RestController
 @Slf4j
@@ -46,13 +39,18 @@ public class LoginController {
     @PostMapping("/login")
     public ModelAndView generateToken(@Valid AuthRequest authRequest) throws Exception {
         try {
+            HttpSession session = httpSessionFactory.getObject();
+            session.removeAttribute("Authorization");
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUserName(), authRequest.getPassword()));
-            HttpSession session = httpSessionFactory.getObject();
+
             session.setAttribute("Authorization", "Bearer " + jwtUtil.generateToken(authRequest.getUserName()));
-            //return jwtUtil.generateToken(authRequest.getUserName());
-            String url = "redirect:/user/"+authRequest.getUserName();
-            //return redirectToUserPage(authRequest.getUserName());
+            if (userService.getUser(authRequest.getUserName()).getRole().equals("ADMIN")) {
+                ModelAndView modelAndView = new ModelAndView();
+                modelAndView.setViewName("redirect:/admin/");
+                return modelAndView;
+            }
+            String url = "redirect:/user/" + authRequest.getUserName();
             ModelAndView modelAndView = new ModelAndView();
             modelAndView.setViewName(url);
             return modelAndView;
@@ -64,7 +62,7 @@ public class LoginController {
     }
 
     @GetMapping("/tutorial")
-    public ModelAndView redirectToUserPage () {
+    public ModelAndView redirectToUserPage() {
         UserDetails userDetails = (UserDetails) SecurityContextHolder.getContext().getAuthentication()
                 .getPrincipal();
         String userName = userDetails.getUsername();
@@ -88,7 +86,7 @@ public class LoginController {
     }
 
     @GetMapping("/home")
-    public ModelAndView getHome () {
+    public ModelAndView getHome() {
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("homePage");
         return modelAndView;
@@ -122,6 +120,13 @@ public class LoginController {
 
         ModelAndView modelAndView = new ModelAndView();
         modelAndView.setViewName("redirect:/login");
+        return modelAndView;
+    }
+
+    @GetMapping("/admin")
+    public ModelAndView getAdminPage() {
+        ModelAndView modelAndView = new ModelAndView();
+        modelAndView.setViewName("adminPage");
         return modelAndView;
     }
 }
